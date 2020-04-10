@@ -12,7 +12,7 @@ conn.connect().then(() => {
     let i = 0;
 
     // The stream function returns a Stream object which can be used to pause/resume/stop the stream
-    const addressStream = conn.stream(['/tool/torch', '=interface=ether3'], (error, packet) => {
+    const addressStream = conn.stream(['/tool/torch', '=interface=ether3','=src-address=172.16.20.250', '=dst-address=0.0.0.0/0'], (error, packet) => {
         // If there is any error, the stream stops immediately
         if (!error) {
             console.log(packet);

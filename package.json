@@ -1,0 +1,16 @@
+{
+  "name": "mikrotik",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test01_001.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "core-util-is": "^1.0.2",
+    "node-fetch": "^2.6.0",
+    "node-routeros": "^1.6.6"
+  }
+}
