@@ -17,12 +17,15 @@ conn.connect().then(() => {
     const addressStream = conn.stream(['/tool/torch', '=interface=ether3','=src-address=172.16.20.250', '=dst-address=0.0.0.0/0','=port=0'], (error, packet) => {
         // If there is any error, the stream stops immediately
         if (!error) {
-            console.log(packet[0]);
+          //  console.log(packet);
             
-            if(packet[0]['src-port']=='420' || packet[0]['src-port'].substring(1,4)=='3389'){
-                    console.log(packet[0]);
+            if(packet[0]['src-port']=='420' || packet[0]['src-port'].substring(1,4)=='3389' || !packet[0]['dst-address']=='129.213.119.156'){
+                    console.log(packet[0]['tx'],packet[0]['rx'],packet[0]['src-port'],packet[0]['dst-address']);
+                if(packet[0]['dst-address']=='10.10.10.35'){
+                    console.log(packet[0]['tx'],packet[0]['rx'])
+                }    
                 
-                if((!(parseInt(packet[0]['tx'])<800 && parseInt(packet[0]['rx'])==528) && (parseInt(packet[0]['tx'])>0 && parseInt(packet[0]['rx'])>0) ) || !(ip ==packet[0]['dst-address'] &&  parseInt(packet[0]['rx'])==0 ) ){
+                if((!(parseInt(packet[0]['tx'])<550 && parseInt(packet[0]['rx'])<=528) && (parseInt(packet[0]['tx'])>0 && parseInt(packet[0]['rx'])>0) ) || (parseInt(packet[0]['tx'])==0 || parseInt(packet[0]['rx'])==0)){
                     
                     const dato = JSON.stringify({
                         'srcaddress':packet[0]['src-address'],
@@ -47,11 +50,7 @@ conn.connect().then(() => {
                         console.log('node-fetch error: ', err)
                     });
 
-                } else if(parseInt(packet[0]['tx'])==432 && parseInt(packet[0]['rx'])==528){
-                    ip=packet[0]['dst-address']
-                }else{
-                    ip=""
-                }   
+                } 
           
             }  
             // Increment the counter
